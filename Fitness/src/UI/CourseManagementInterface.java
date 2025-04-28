@@ -3,16 +3,17 @@ package UI;
 import Dao.CourseDao;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CourseManagementInterface extends JFrame {
-    private static JLabel totalCoursesLabel;
-    private JList<String> courseList;
-    private static DefaultListModel<String> courseListModel;
+    private JLabel totalCoursesLabel;
+    private JTable courseTable;
+    private DefaultTableModel tableModel;
     private JButton addButton;
     private JButton modifyButton;
     private JButton deleteButton;
@@ -21,185 +22,167 @@ public class CourseManagementInterface extends JFrame {
     public CourseManagementInterface() {
         setTitle("Course Management");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(700, 350);
         setLocationRelativeTo(null);
-        setSize(500, 300);
         initComponents();
-        loadCourseData(); // Load course data
-        pack(); // Adjust the frame size based on its content
+        loadCourseData();
     }
 
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
+        getContentPane().setBackground(new Color(248, 193, 60));
 
-        // Panel for displaying total number of courses
+        // Total Courses Panel
         JPanel totalCoursesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        totalCoursesLabel = new JLabel("Total Courses: ");
+        totalCoursesLabel = new JLabel("Total Courses: 0");
+        totalCoursesLabel.setForeground(Color.WHITE);
         totalCoursesPanel.setBackground(new Color(248, 193, 60));
-        totalCoursesPanel.setForeground(new Color(255,255,255));
         totalCoursesPanel.add(totalCoursesLabel);
         mainPanel.add(totalCoursesPanel, BorderLayout.NORTH);
 
-        // Panel for displaying course list
-        JPanel coursePanel = new JPanel(new BorderLayout());
-        courseListModel = new DefaultListModel<>();
-        courseList = new JList<>(courseListModel);
-        JScrollPane courseScrollPane = new JScrollPane(courseList);
-        coursePanel.add(new JLabel("Course List"), BorderLayout.NORTH);
-        coursePanel.setBackground(new Color(248, 193, 60));
-        coursePanel.add(courseScrollPane, BorderLayout.CENTER);
-
-        // Button panel for course operations
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        addButton = new JButton("Add Course");
-        addButton.setBackground(new Color(248, 193, 60)); // Set background color
-        addButton.setForeground(new Color(255,255,255));
-        modifyButton = new JButton("Modify");
-        modifyButton.setBackground(new Color(248, 193, 60)); // Set background color
-        modifyButton.setForeground(new Color(255,255,255));
-
-        deleteButton = new JButton("Delete Course");
-        deleteButton.setBackground(new Color(248, 193, 60)); // Set background color
-        deleteButton.setForeground(new Color(255,255,255));
-
-        // Initially disable buttons
-        addButton.setEnabled(true); // Enable the add button
-        modifyButton.setEnabled(false);
-        deleteButton.setEnabled(false);
-
-        // Add action listeners to the buttons
-        addButton.addActionListener(new ActionListener() {
+        // Table setup
+        String[] columnNames = {"ID", "Name", "Description"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                // Implement the add course functionality
-                AddCourseInterface addCourseInterface = new AddCourseInterface(CourseManagementInterface.this);
-                addCourseInterface.setVisible(true);
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        courseTable = new JTable(tableModel);
+        courseTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        courseTable.getTableHeader().setReorderingAllowed(false);
+
+// Adjust column widths
+        courseTable.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
+        courseTable.getColumnModel().getColumn(1).setPreferredWidth(150); // Name
+        courseTable.getColumnModel().getColumn(2).setPreferredWidth(500); // Description
+
+// Center-align ID and Name columns
+        courseTable.getColumnModel().getColumn(0).setCellRenderer(new CenterRenderer());
+        courseTable.getColumnModel().getColumn(1).setCellRenderer(new CenterRenderer());
+
+
+        JScrollPane tableScrollPane = new JScrollPane(courseTable);
+        tableScrollPane.setPreferredSize(new Dimension(750, 350));
+
+        JPanel tablePanel = new JPanel(new BorderLayout());
+        tablePanel.setBackground(new Color(248, 193, 60));
+        tablePanel.add(tableScrollPane, BorderLayout.CENTER);
+        mainPanel.add(tablePanel, BorderLayout.CENTER);
+
+        // Button Panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        addButton = createButton("Add Course", e -> {
+            AddCourseInterface addCourseInterface = new AddCourseInterface(CourseManagementInterface.this);
+            addCourseInterface.setVisible(true);
+        });
+
+        modifyButton = createButton("Modify", e -> {
+            int selectedRow = courseTable.getSelectedRow();
+            if (selectedRow != -1) {
+                int courseId = (int) tableModel.getValueAt(selectedRow, 0); // Now getting the hidden ID
+                ModifyCourseInterface modifyCourseInterface = new ModifyCourseInterface(CourseManagementInterface.this, courseId);
+                modifyCourseInterface.setVisible(true);
             }
         });
 
-        modifyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Implement the modify course functionality
-                int selectedIndex = courseList.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    // Extract course ID from the selected item
-                    String selectedCourseId = courseList.getSelectedValue().split(":")[0].trim();
-                    int courseId = Integer.parseInt(selectedCourseId);
+        deleteButton = createButton("Delete", e -> {
+            int selectedRow = courseTable.getSelectedRow();
+            if (selectedRow != -1) {
+                String courseName = (String) tableModel.getValueAt(selectedRow, 1);
 
-                    // Open the ModifyCourseInterface
-                    ModifyCourseInterface modifyCourseInterface = new ModifyCourseInterface(CourseManagementInterface.this, courseId);
-                    modifyCourseInterface.setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(CourseManagementInterface.this, "Please select a course to modify.");
-                }
-            }
-        });
+                int option = JOptionPane.showConfirmDialog(
+                        CourseManagementInterface.this,
+                        "Delete course: " + courseName + "?",
+                        "Confirm Deletion",
+                        JOptionPane.YES_NO_OPTION
+                );
 
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Implement the delete course functionality
-                int selectedIndex = courseList.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    String selectedCourseId = courseList.getSelectedValue().split(":")[0].trim();
-                    int courseId = Integer.parseInt(selectedCourseId);
-
-                    // Show confirmation dialog
-                    int option = JOptionPane.showConfirmDialog(CourseManagementInterface.this,
-                            "Are you sure you want to delete this course?", "Confirmation", JOptionPane.YES_NO_OPTION);
-
-                    if (option == JOptionPane.YES_OPTION) {
-                        int rowsAffected = courseDao.deleteCourse(courseId);
-                        if (rowsAffected > 0) {
-                            // Reload course data after deletion
-                            loadCourseData();
-                            JOptionPane.showMessageDialog(CourseManagementInterface.this, "Course deleted successfully.");
-                        } else {
-                            JOptionPane.showMessageDialog(CourseManagementInterface.this, "Failed to delete course.");
-                        }
+                if (option == JOptionPane.YES_OPTION) {
+                    int courseId = (int) tableModel.getValueAt(selectedRow, 0); // Hidden ID
+                    int rowsAffected = courseDao.deleteCourse(courseId);
+                    if (rowsAffected > 0) {
+                        loadCourseData();
+                        JOptionPane.showMessageDialog(CourseManagementInterface.this, "Course deleted successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(CourseManagementInterface.this, "Failed to delete course.");
                     }
-                } else {
-                    JOptionPane.showMessageDialog(CourseManagementInterface.this, "Please select a course to delete.");
                 }
             }
         });
 
-        // Add buttons to button panel
         buttonPanel.add(addButton);
         buttonPanel.add(modifyButton);
         buttonPanel.add(deleteButton);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        coursePanel.add(buttonPanel, BorderLayout.SOUTH);
-
-        mainPanel.add(coursePanel, BorderLayout.CENTER);
-
-        // Add ListSelectionListener to course list
-        courseList.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                if (courseList.getSelectedIndex() != -1) {
-                    // Enable buttons if a course is selected
-                    addButton.setEnabled(true);
-                    modifyButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-                } else {
-                    // Disable buttons if no course is selected
-                    addButton.setEnabled(false);
-                    modifyButton.setEnabled(false);
-                    deleteButton.setEnabled(false);
-                }
-            }
+        // Enable/disable buttons based on selection
+        courseTable.getSelectionModel().addListSelectionListener(e -> {
+            boolean rowSelected = courseTable.getSelectedRow() != -1;
+            modifyButton.setEnabled(rowSelected);
+            deleteButton.setEnabled(rowSelected);
         });
 
         add(mainPanel);
     }
 
-    // Method to load course data from the database
+    private JButton createButton(String text, ActionListener listener) {
+        JButton button = new JButton(text);
+        button.setBackground(new Color(248, 193, 60));
+        button.setForeground(Color.WHITE);
+        button.setPreferredSize(new Dimension(120, 30));
+        button.addActionListener(listener);
+        return button;
+    }
+
     public void loadCourseData() {
         try {
             if (courseDao == null) {
-                // Initialize the CourseDao instance if not already initialized
                 courseDao = new CourseDao();
             }
 
-            // Clear the course list model
-            courseListModel.clear();
+            // Clear the table
+            tableModel.setRowCount(0);
 
-            // Retrieve all courses from the database
+            // Retrieve all courses from database
             ResultSet resultSet = courseDao.getAllCourses();
             int totalCourses = 0;
 
             while (resultSet.next()) {
-                String courseId = resultSet.getString("id");
-                String courseName = resultSet.getString("name");
-                courseListModel.addElement(courseId + " : " + courseName);
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String description = resultSet.getString("description");
+
+                tableModel.addRow(new Object[]{id, name, description});
                 totalCourses++;
             }
 
-            // Update the total courses label
             totalCoursesLabel.setText("Total Courses: " + totalCourses);
-
-            // Close the ResultSet
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error loading course data: " + e.getMessage(),
+                    "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public static void addNewCourseToList(String name) {
-        // Add the new member to the member list model
-        courseListModel.addElement(name);
-
-        // Update the total members label
-        int totalMembers = courseListModel.size();
-        totalCoursesLabel.setText("Total Members: " + totalMembers);
+    // Custom renderer for center-aligned Name column
+    private static class CenterRenderer extends DefaultTableCellRenderer {
+        public CenterRenderer() {
+            setHorizontalAlignment(JLabel.CENTER);
+        }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new CourseManagementInterface().setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            CourseManagementInterface management = new CourseManagementInterface();
+            management.setVisible(true);
         });
+    }
+
+    public void refreshCourseData() {
+        loadCourseData();
     }
 }

@@ -38,7 +38,7 @@ public class ModifyCourseInterface extends JFrame {
         // Panel for the title
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel("Modify Course");
-        titleLabel.setForeground(new Color(237, 140, 70));
+        titleLabel.setForeground(new Color(248, 193, 60));
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titlePanel.add(titleLabel);
 
@@ -56,7 +56,7 @@ public class ModifyCourseInterface extends JFrame {
         // Panel for buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         saveButton = new JButton("Save");
-        saveButton.setBackground(new Color(237, 140, 70));
+        saveButton.setBackground(new Color(248, 193, 60));
         saveButton.setForeground(Color.WHITE);
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -66,7 +66,7 @@ public class ModifyCourseInterface extends JFrame {
         });
 
         cancelButton = new JButton("Cancel");
-        cancelButton.setBackground(new Color(237, 140, 70));
+        cancelButton.setBackground(new Color(248, 193, 60));
         cancelButton.setForeground(Color.WHITE);
         cancelButton.addActionListener(new ActionListener() {
             @Override

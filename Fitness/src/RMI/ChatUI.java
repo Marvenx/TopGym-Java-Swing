@@ -57,6 +57,7 @@ public class ChatUI extends JFrame {
                 try {
                     String psd = pseudo;
                     chat.addMessage(new Message(psd, messageField.getText()));
+                    messageField.setText("");
                 } catch (RemoteException ex) {
                     throw new RuntimeException(ex);
                 }

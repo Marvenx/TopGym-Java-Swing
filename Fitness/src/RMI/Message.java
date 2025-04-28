@@ -40,6 +40,6 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "pseudo: " + pseudo + " : " + date.toString() + "\n" + message + "\n";
+        return "pseudo: " + pseudo + " : " + date.toString() + "\n" + "--> " + message + "\n";
     }
 }
