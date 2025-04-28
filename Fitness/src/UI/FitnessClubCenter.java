@@ -20,7 +20,7 @@ public class FitnessClubCenter extends JFrame {
         setTitle("Fitness Club Center - Manager Portal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
-            backgroundImage = ImageIO.read(new File("C:\\Users\\ASUS TUF\\Downloads\\fitnesscenter-master\\fitnesscenter-master\\Fitness\\src\\images\\abstract-blur-gym-room.jpg"));
+            backgroundImage = ImageIO.read(new File("C:\\Users\\ASUS TUF\\Downloads\\fitnesscenter-master\\fitnesscenter-master\\Fitness\\src\\images\\fitness-center.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
