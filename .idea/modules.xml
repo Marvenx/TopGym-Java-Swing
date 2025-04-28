@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Fitness/Fitness.iml" filepath="$PROJECT_DIR$/Fitness/Fitness.iml" />
       <module fileurl="file://$PROJECT_DIR$/ServeurRMI/ServeurRMI.iml" filepath="$PROJECT_DIR$/ServeurRMI/ServeurRMI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/fitnesscenter-master.iml" filepath="$PROJECT_DIR$/.idea/fitnesscenter-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/fitnesscenter.iml" filepath="$PROJECT_DIR$/.idea/fitnesscenter.iml" />
     </modules>
   </component>
 </project>

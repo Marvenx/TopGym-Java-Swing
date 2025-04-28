@@ -14,10 +14,10 @@ public class AddMemberInterface extends JFrame {
     private JTextField ageField;
     private JTextField idField;
     private JCheckBox paidCheckBox;
-    private HomePageUI homePageUI; // Reference to the HomePageUI instance
+    private MemberManagement memberManagement; // Reference to the HomePageUI instance
 
-    public AddMemberInterface(HomePageUI homePageUI) {
-        this.homePageUI = homePageUI; // Store the reference to the HomePageUI instance
+    public AddMemberInterface(MemberManagement memberManagement) {
+        this.memberManagement = memberManagement; // Store the reference to the HomePageUI instance
         setTitle("Add New Member");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
@@ -67,8 +67,6 @@ addButton.setForeground(new Color(255,255,255));
         formPanel.add(prenameField);
         formPanel.add(ageLabel);
         formPanel.add(ageField);
-        formPanel.add(idLabel);
-        formPanel.add(idField);
         formPanel.add(paidLabel);
         formPanel.add(paidCheckBox);
 
@@ -83,7 +81,6 @@ addButton.setForeground(new Color(255,255,255));
         String name = nameField.getText();
         String prename = prenameField.getText();
         int age = Integer.parseInt(ageField.getText());
-        String id = idField.getText();
         boolean paid = paidCheckBox.isSelected();
 
         // Create a new Member object
@@ -98,7 +95,7 @@ addButton.setForeground(new Color(255,255,255));
             JOptionPane.showMessageDialog(this, "Member added successfully!");
 
             // Notify the HomePageUI instance to add the new member to the list
-            homePageUI.addNewMemberToList(name);
+            memberManagement.addNewMemberToList(name);
 
             // Close the AddMemberInterface frame
             dispose();
@@ -112,7 +109,7 @@ addButton.setForeground(new Color(255,255,255));
             @Override
             public void run() {
                 // Instantiate the HomePageUI and pass it to the AddMemberInterface constructor
-                new AddMemberInterface(new HomePageUI()).setVisible(true);
+                new AddMemberInterface(new MemberManagement()).setVisible(true);
             }
         });
     }

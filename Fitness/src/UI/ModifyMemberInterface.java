@@ -2,7 +2,6 @@ package UI;
 
 import Classes.Member;
 import Dao.MemberDao;
-import UI.HomePageUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +19,9 @@ public class ModifyMemberInterface extends JFrame {
     private JButton saveButton;
     private JButton cancelButton;
 
-    private HomePageUI parentFrame;
+    private MemberManagement parentFrame;
 
-    public ModifyMemberInterface(HomePageUI parentFrame, int memberId) {
+    public ModifyMemberInterface(MemberManagement parentFrame, int memberId) {
         this.parentFrame = parentFrame;
         this.memberId = memberId;
 
@@ -189,7 +188,7 @@ public class ModifyMemberInterface extends JFrame {
             @Override
             public void run() {
                 // You need to provide the parentFrame and memberId values here
-                HomePageUI parentFrame = new HomePageUI();
+                MemberManagement parentFrame = new MemberManagement();
                 int memberId = 123; // Replace with the actual member ID
                 new ModifyMemberInterface(parentFrame, memberId).setVisible(true);
             }

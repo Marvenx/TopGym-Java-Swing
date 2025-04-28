@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class HomePageUI extends JFrame {
+public class MemberManagement extends JFrame {
     private JLabel totalMembersLabel;
     private JList<String> memberList;
     private DefaultListModel<String> memberListModel;
@@ -17,7 +17,7 @@ public class HomePageUI extends JFrame {
     private JButton deleteButton;
     private MemberDao memberDao;
 
-    public HomePageUI() {
+    public MemberManagement() {
         setTitle("Member Management");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -46,12 +46,12 @@ public class HomePageUI extends JFrame {
         memberListModel = new DefaultListModel<>();
         memberList = new JList<>(memberListModel);
         JScrollPane memberScrollPane = new JScrollPane(memberList);
-        memberPanel.add(new JLabel("Member List"), BorderLayout.NORTH);
+        memberPanel.add(new JLabel("Members List"), BorderLayout.NORTH);
         memberPanel.add(memberScrollPane, BorderLayout.CENTER);
         totalMembersLabel.setForeground(Color.WHITE); // Set text color to white
         memberPanel.setBackground(new Color(237, 144, 70)); // Set background color
 
-        JLabel memberListLabel = new JLabel("Member List", SwingConstants.CENTER);
+        JLabel memberListLabel = new JLabel("Members List", SwingConstants.CENTER);
         memberListLabel.setForeground(Color.WHITE); // Set text color to white
 
         // Button panel for member operations
@@ -81,7 +81,7 @@ public class HomePageUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Show the AddMemberInterface when the add button is clicked
-                AddMemberInterface addMemberInterface = new AddMemberInterface(HomePageUI.this);
+                AddMemberInterface addMemberInterface = new AddMemberInterface(MemberManagement.this);
                 addMemberInterface.setVisible(true);
             }
         });
@@ -95,7 +95,7 @@ public class HomePageUI extends JFrame {
                     int memberId = Integer.parseInt(selectedMemberId);
 
                     // Show the ModifyMemberInterface when the modify button is clicked
-                    ModifyMemberInterface modifyMemberInterface = new ModifyMemberInterface(HomePageUI.this, memberId);
+                    ModifyMemberInterface modifyMemberInterface = new ModifyMemberInterface(MemberManagement.this, memberId);
                     modifyMemberInterface.setVisible(true);
                 }
             }
@@ -110,7 +110,7 @@ public class HomePageUI extends JFrame {
                     int memberId = Integer.parseInt(selectedMemberId);
 
                     // Show confirmation dialog
-                    int option = JOptionPane.showConfirmDialog(HomePageUI.this, "Are you sure you want to delete this member?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                    int option = JOptionPane.showConfirmDialog(MemberManagement.this, "Are you sure you want to delete this member?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
                     if (option == JOptionPane.YES_OPTION) {
                         // Call deleteMember method from MemberDao
@@ -118,9 +118,9 @@ public class HomePageUI extends JFrame {
                         if (rowsAffected > 0) {
                             // Reload member data after deletion
                             loadMemberData();
-                            JOptionPane.showMessageDialog(HomePageUI.this, "Member deleted successfully.");
+                            JOptionPane.showMessageDialog(MemberManagement.this, "Member deleted successfully.");
                         } else {
-                            JOptionPane.showMessageDialog(HomePageUI.this, "Failed to delete member.");
+                            JOptionPane.showMessageDialog(MemberManagement.this, "Failed to delete member.");
                         }
                     }
                 }
@@ -205,7 +205,7 @@ public class HomePageUI extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new HomePageUI().setVisible(true);
+                new MemberManagement().setVisible(true);
             }
         });
     }

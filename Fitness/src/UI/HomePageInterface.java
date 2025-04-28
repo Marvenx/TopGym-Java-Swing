@@ -2,8 +2,6 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -82,8 +80,8 @@ public class HomePageInterface extends JFrame {
 
     // Action methods for button clicks
     private void openHomePageUI() {
-        HomePageUI homePageUI = new HomePageUI();
-        homePageUI.setVisible(true);
+        MemberManagement memberManagement = new MemberManagement();
+        memberManagement.setVisible(true);
     }
 
     private void openCourseManagementInterface() {
