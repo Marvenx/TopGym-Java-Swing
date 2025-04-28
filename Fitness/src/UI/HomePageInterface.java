@@ -13,7 +13,7 @@ public class HomePageInterface extends JFrame {
 
     public HomePageInterface() {
         setTitle("Manager Homepage");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
             backgroundImage = ImageIO.read(new File("C:\\Users\\ASUS TUF\\Downloads\\fitnesscenter-master\\fitnesscenter-master\\Fitness\\src\\images\\man-moving-giant-tire-wheel-gym.jpg")); // Change the path to your image
         } catch (IOException e) {

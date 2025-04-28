@@ -18,7 +18,7 @@ public class AddCourseInterface extends JFrame {
 
         this.courseManagementInterface = courseManagementInterface;
         setTitle("Add New Course");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
         setSize(400, 200);
         setLocationRelativeTo(null);

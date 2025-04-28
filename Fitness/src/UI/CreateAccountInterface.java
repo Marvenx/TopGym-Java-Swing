@@ -16,7 +16,7 @@ public class CreateAccountInterface extends JFrame {
 
     public CreateAccountInterface() {
         setTitle("Create Account");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
         setSize(600, 400);
         setLocationRelativeTo(null);

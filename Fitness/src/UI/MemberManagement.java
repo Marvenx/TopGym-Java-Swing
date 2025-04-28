@@ -19,7 +19,7 @@ public class MemberManagement extends JFrame {
 
     public MemberManagement() {
         setTitle("Member Management");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(500, 300); // Set the size of the JFrame
         initComponents();

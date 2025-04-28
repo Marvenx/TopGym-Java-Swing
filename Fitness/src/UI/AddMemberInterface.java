@@ -12,14 +12,13 @@ public class AddMemberInterface extends JFrame {
     private JTextField nameField;
     private JTextField prenameField;
     private JTextField ageField;
-    private JTextField idField;
     private JCheckBox paidCheckBox;
     private MemberManagement memberManagement; // Reference to the HomePageUI instance
 
     public AddMemberInterface(MemberManagement memberManagement) {
         this.memberManagement = memberManagement; // Store the reference to the HomePageUI instance
         setTitle("Add New Member");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
         setSize(500, 300);
         pack(); // Adjust the frame size based on its content
@@ -43,9 +42,6 @@ public class AddMemberInterface extends JFrame {
 
         JLabel ageLabel = new JLabel("Age:");
         ageField = new JTextField(15);
-
-        JLabel idLabel = new JLabel("ID:");
-        idField = new JTextField(15);
 
         JLabel paidLabel = new JLabel("Paid:");
         paidCheckBox = new JCheckBox();

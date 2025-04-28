@@ -4,10 +4,7 @@ import BD.Config;
 import BD.MyConnexion;
 import Classes.Member;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MemberDao {
     private Connection con;
@@ -19,20 +16,29 @@ public class MemberDao {
     public int addMember(Member member) {
         int rowsAffected = 0;
         try {
-            String query = "INSERT INTO member (name, prename, age, id, paid) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement preparedStatement = con.prepareStatement(query);
+            // Remove 'id' from the column list and let the database auto-generate it
+            String query = "INSERT INTO member (name, prename, age, paid) VALUES (?, ?, ?, ?)";
+            PreparedStatement preparedStatement = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, member.getName());
             preparedStatement.setString(2, member.getPrename());
             preparedStatement.setInt(3, member.getAge());
-            preparedStatement.setInt(4, member.getId());
-            preparedStatement.setBoolean(5, member.isPaid());
+            preparedStatement.setBoolean(4, member.isPaid());
+
             rowsAffected = preparedStatement.executeUpdate();
+
+            // Retrieve the auto-generated ID if needed
+            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    member.setId(generatedKeys.getInt(1)); // Set the generated ID back to the member object
+                }
+            }
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return rowsAffected;
     }
+
 
     public int updateMember(Member member) {
         int rowsAffected = 0;

@@ -14,7 +14,7 @@ public class AuthenticationUI extends JFrame {
 
     public AuthenticationUI() {
         setTitle("Authentication");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(600, 400);
         initComponents();

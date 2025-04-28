@@ -20,7 +20,7 @@ public class CourseManagementInterface extends JFrame {
 
     public CourseManagementInterface() {
         setTitle("Course Management");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setSize(500, 300);
         initComponents();
