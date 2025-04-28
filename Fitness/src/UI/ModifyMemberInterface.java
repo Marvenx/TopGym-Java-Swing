@@ -85,7 +85,7 @@ public class ModifyMemberInterface extends JFrame {
 
         // Button panel with FlowLayout
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0)); // Added horizontal gap of 10 pixels
-        buttonPanel.setBackground(new Color(237, 144, 70)); // Set background color of the button panel
+        buttonPanel.setBackground(new Color(248, 193, 60)); // Set background color of the button panel
 
         // Save button
         saveButton = new JButton("Save");
@@ -166,7 +166,7 @@ public class ModifyMemberInterface extends JFrame {
         getContentPane().setBackground(new Color(255, 255, 240));
 
         // Set button colors and borders
-        Color buttonColor = new Color(237, 144, 70); // Button background color
+        Color buttonColor = new Color(248, 193, 60); // Button background color
         Color textColor = Color.WHITE; // Button text color
         Font buttonFont = new Font("Arial", Font.PLAIN, 14); // Button font
 

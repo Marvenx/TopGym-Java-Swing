@@ -4,35 +4,34 @@ import Classes.Member;
 import Dao.MemberDao;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AddMemberInterface extends JFrame {
     private JTextField nameField;
     private JTextField prenameField;
     private JTextField ageField;
     private JCheckBox paidCheckBox;
-    private MemberManagement memberManagement; // Reference to the HomePageUI instance
+    private MemberManagement memberManagement;
 
     public AddMemberInterface(MemberManagement memberManagement) {
-        this.memberManagement = memberManagement; // Store the reference to the HomePageUI instance
+        this.memberManagement = memberManagement;
         setTitle("Add New Member");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(450, 300);  // keep the original frame size
+        setLocationRelativeTo(null); // center the frame
         initComponents();
-        setSize(500, 300);
-        pack(); // Adjust the frame size based on its content
-        setLocationRelativeTo(null); // Center the frame on the screen
     }
-
-
 
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(new Color(237, 144, 70)); // Set background color of the main panel
+        //mainPanel.setBackground(new Color(248, 193, 60)); // Your original background
+        mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 5, 5)); // 5 rows, 2 columns
-        formPanel.setBackground(new Color(255, 255, 240)); // Light cream color background
+        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10)); // 5 rows, 2 columns
+        //formPanel.setBackground(new Color(255, 255, 240)); // Your light cream form background
+        formPanel.setBorder(new EmptyBorder(15, 15, 0, 15)); // Added some padding around the form
 
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField(15);
@@ -45,18 +44,16 @@ public class AddMemberInterface extends JFrame {
 
         JLabel paidLabel = new JLabel("Paid:");
         paidCheckBox = new JCheckBox();
+        //paidCheckBox.setBackground(new Color(255, 255, 240)); // Match background
 
         JButton addButton = new JButton("Add");
-        addButton.setBackground(new Color(237, 144, 70)); // Set background color of the Add button
-addButton.setForeground(new Color(255,255,255));
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Handle add button click
-                addMember();
-            }
-        });
+        addButton.setBackground(new Color(248, 193, 60)); // Same button color
+        addButton.setForeground(Color.WHITE); // White text
+        addButton.setFocusPainted(false);
+        addButton.setFont(new Font("Arial", Font.BOLD, 16));
+        addButton.addActionListener(this::addMemberAction);
 
+        // Add components to form panel
         formPanel.add(nameLabel);
         formPanel.add(nameField);
         formPanel.add(prenameLabel);
@@ -67,33 +64,41 @@ addButton.setForeground(new Color(255,255,255));
         formPanel.add(paidCheckBox);
 
         mainPanel.add(formPanel, BorderLayout.CENTER);
-        mainPanel.add(addButton, BorderLayout.SOUTH);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        //buttonPanel.setBackground(new Color(248, 193, 60));
+        buttonPanel.add(addButton);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
     }
 
-    private void addMember() {
-        // Retrieve data from fields
-        String name = nameField.getText();
-        String prename = prenameField.getText();
-        int age = Integer.parseInt(ageField.getText());
+    private void addMemberAction(ActionEvent e) {
+        String name = nameField.getText().trim();
+        String prename = prenameField.getText().trim();
+        String ageText = ageField.getText().trim();
         boolean paid = paidCheckBox.isSelected();
 
-        // Create a new Member object
+        if (name.isEmpty() || prename.isEmpty() || ageText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int age;
+        try {
+            age = Integer.parseInt(ageText);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid age.", "Input Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         Member newMember = new Member(0, name, prename, age, paid);
-
-        // Add the new member to the database using the MemberDao
         MemberDao memberDao = new MemberDao();
-        int rowsAffected = memberDao.addMember(newMember);
+        int result = memberDao.addMember(newMember);
 
-        // Display a message based on the result
-        if (rowsAffected > 0) {
+        if (result > 0) {
             JOptionPane.showMessageDialog(this, "Member added successfully!");
-
-            // Notify the HomePageUI instance to add the new member to the list
-            memberManagement.addNewMemberToList(name);
-
-            // Close the AddMemberInterface frame
+            memberManagement.refreshMemberData();
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to add member.");
@@ -101,12 +106,6 @@ addButton.setForeground(new Color(255,255,255));
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                // Instantiate the HomePageUI and pass it to the AddMemberInterface constructor
-                new AddMemberInterface(new MemberManagement()).setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new AddMemberInterface(new MemberManagement()).setVisible(true));
     }
 }

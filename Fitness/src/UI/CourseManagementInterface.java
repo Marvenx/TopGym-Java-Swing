@@ -34,7 +34,7 @@ public class CourseManagementInterface extends JFrame {
         // Panel for displaying total number of courses
         JPanel totalCoursesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         totalCoursesLabel = new JLabel("Total Courses: ");
-        totalCoursesPanel.setBackground(new Color(237, 144, 70));
+        totalCoursesPanel.setBackground(new Color(248, 193, 60));
         totalCoursesPanel.setForeground(new Color(255,255,255));
         totalCoursesPanel.add(totalCoursesLabel);
         mainPanel.add(totalCoursesPanel, BorderLayout.NORTH);
@@ -45,20 +45,20 @@ public class CourseManagementInterface extends JFrame {
         courseList = new JList<>(courseListModel);
         JScrollPane courseScrollPane = new JScrollPane(courseList);
         coursePanel.add(new JLabel("Course List"), BorderLayout.NORTH);
-        coursePanel.setBackground(new Color(237, 144, 70));
+        coursePanel.setBackground(new Color(248, 193, 60));
         coursePanel.add(courseScrollPane, BorderLayout.CENTER);
 
         // Button panel for course operations
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         addButton = new JButton("Add Course");
-        addButton.setBackground(new Color(237, 144, 70)); // Set background color
+        addButton.setBackground(new Color(248, 193, 60)); // Set background color
         addButton.setForeground(new Color(255,255,255));
         modifyButton = new JButton("Modify");
-        modifyButton.setBackground(new Color(237, 144, 70)); // Set background color
+        modifyButton.setBackground(new Color(248, 193, 60)); // Set background color
         modifyButton.setForeground(new Color(255,255,255));
 
         deleteButton = new JButton("Delete Course");
-        deleteButton.setBackground(new Color(237, 144, 70)); // Set background color
+        deleteButton.setBackground(new Color(248, 193, 60)); // Set background color
         deleteButton.setForeground(new Color(255,255,255));
 
         // Initially disable buttons

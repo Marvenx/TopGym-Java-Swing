@@ -30,7 +30,7 @@ public class AddCourseInterface extends JFrame {
         JPanel formPanel = new JPanel(new GridLayout(3, 2, 5, 5));
 
         JLabel titleLabel = new JLabel("Add New Course");
-        titleLabel.setForeground(new Color(237, 140, 70));
+        titleLabel.setForeground(new Color(248, 193, 60));
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -46,7 +46,7 @@ public class AddCourseInterface extends JFrame {
         idField.setForeground(new Color(30, 117, 158));
 
         JButton addButton = new JButton("Add");
-        addButton.setBackground(new Color(237, 140, 70));
+        addButton.setBackground(new Color(248, 193, 60));
         addButton.setForeground(Color.WHITE);
         addButton.setFocusPainted(false);
         addButton.addActionListener(new ActionListener() {

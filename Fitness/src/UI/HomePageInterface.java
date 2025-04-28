@@ -15,7 +15,7 @@ public class HomePageInterface extends JFrame {
         setTitle("Manager Homepage");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         try {
-            backgroundImage = ImageIO.read(new File("C:\\Users\\ASUS TUF\\Downloads\\fitnesscenter-master\\fitnesscenter-master\\Fitness\\src\\images\\man-moving-giant-tire-wheel-gym.jpg")); // Change the path to your image
+            backgroundImage = ImageIO.read(new File("C:\\Users\\ASUS TUF\\Downloads\\fitnesscenter-master\\fitnesscenter-master\\Fitness\\src\\images\\fitness2.jpg")); // Change the path to your image
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,12 +36,18 @@ public class HomePageInterface extends JFrame {
         };
         mainPanel.setLayout(new BorderLayout());
 
-        // Welcome label
-        JLabel welcomeLabel = new JLabel("Welcome to Our Manager");
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set font and size for welcome message
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER); // Align text to center horizontally
-        welcomeLabel.setForeground(Color.WHITE); // Set text color
-        mainPanel.add(welcomeLabel, BorderLayout.NORTH);
+        JPanel textPanel = new JPanel();
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
+        textPanel.setOpaque(false);
+        textPanel.setBorder(BorderFactory.createEmptyBorder(60, 0, 10, 0)); // Add padding at bottom
+
+        JLabel welcomeLabel = new JLabel("Welcome, Mr Manager");
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36));
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        welcomeLabel.setForeground(new Color(18, 111, 185));
+
+        textPanel.add(welcomeLabel);
+        mainPanel.add(textPanel, BorderLayout.NORTH);
 
         // Button panel
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 10, 10)); // Use GridLayout for button arrangement
