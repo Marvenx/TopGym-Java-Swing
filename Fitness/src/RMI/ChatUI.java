@@ -18,7 +18,7 @@ public class ChatUI extends JFrame {
     public ChatUI(ChatRemote chat) {
         setTitle("Chat App");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
         this.chat = chat;
         chatArea = new JTextArea();

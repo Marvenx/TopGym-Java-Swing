@@ -1,6 +1,7 @@
 package UI;
 
 import javax.swing.*;
+import RMI.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -96,8 +97,17 @@ public class HomePageInterface extends JFrame {
     }
 
     private void openChatRoom() {
-        JOptionPane.showMessageDialog(HomePageInterface.this, "Opening Chat Room");
+        try {
+            String url = "rmi://127.0.0.1:9001/chat";
+            ChatRemote chat = (ChatRemote) java.rmi.Naming.lookup(url);
+            new ChatUI(chat).setVisible(true); // directly open ChatUI
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Failed to open Chat Room.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
+
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new HomePageInterface().setVisible(true));

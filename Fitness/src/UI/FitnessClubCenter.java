@@ -48,7 +48,7 @@ public class FitnessClubCenter extends JFrame {
         textPanel.setOpaque(false);
         textPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0)); // Add padding at bottom
 
-        JLabel welcomeLabel = new JLabel("Welcome to Fitness Club Center");
+        JLabel welcomeLabel = new JLabel("Welcome to the Manager Portal");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         welcomeLabel.setForeground(new Color(18, 111, 185));
