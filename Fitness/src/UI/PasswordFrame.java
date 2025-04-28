@@ -58,7 +58,6 @@ public class PasswordFrame extends JFrame {
     }
 
     private void openManagerPortal() {
-        // Open the manager's portal
         new FitnessClubCenter().setVisible(true); // <-- your FitnessClubCenter
         this.dispose();
     }

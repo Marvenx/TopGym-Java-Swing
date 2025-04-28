@@ -11,8 +11,6 @@ public class Course {
         this.description = description;
     }
 
-    // Getters et setters
-
     public int getId() {
         return id;
     }
@@ -36,8 +34,6 @@ public class Course {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    // Méthodecs equals() et hashCode() si nécessaire
 
     @Override
     public String toString() {

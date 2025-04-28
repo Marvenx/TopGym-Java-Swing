@@ -16,7 +16,7 @@ public class MemberDao {
     public int addMember(Member member) {
         int rowsAffected = 0;
         try {
-            // Remove 'id' from the column list and let the database auto-generate it
+
             String query = "INSERT INTO member (name, prename, age, paid) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, member.getName());
@@ -26,7 +26,6 @@ public class MemberDao {
 
             rowsAffected = preparedStatement.executeUpdate();
 
-            // Retrieve the auto-generated ID if needed
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     member.setId(generatedKeys.getInt(1)); // Set the generated ID back to the member object

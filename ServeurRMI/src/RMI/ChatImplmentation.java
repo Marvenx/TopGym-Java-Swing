@@ -10,12 +10,12 @@ public class ChatImplmentation extends UnicastRemoteObject implements ChatRemote
     public ChatImplmentation() throws RemoteException {
         discussion = new ArrayList<Message>();
     }
-
+    @Override
     public ArrayList<Message> getAllMsgs() throws RemoteException {
         return discussion;
     }
 
-
+    @Override
     public void addMessage(Message ch) throws RemoteException {
         discussion.add(ch);
     }

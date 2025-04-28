@@ -1,8 +1,5 @@
 package UI;
 
-import UI.AuthenticationUI;
-import UI.CreateAccountInterface;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -39,26 +36,23 @@ public class FitnessClubCenter extends JFrame {
         };
         mainPanel.setLayout(new BorderLayout());
 
-        // Add more vertical space at the top
         mainPanel.add(Box.createVerticalStrut(120), BorderLayout.NORTH);
 
-        // Create a panel for the title and description
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setOpaque(false);
-        textPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0)); // Add padding at bottom
+        textPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
 
         JLabel welcomeLabel = new JLabel("Welcome to the Manager Portal");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         welcomeLabel.setForeground(new Color(18, 111, 185));
 
-        // Add manager description label
         JLabel managerLabel = new JLabel("Manager Portal - Member Management System");
         managerLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         managerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         managerLabel.setForeground(Color.WHITE);
-        managerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0)); // Add space above
+        managerLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
         textPanel.add(welcomeLabel);
         textPanel.add(managerLabel);
@@ -66,7 +60,7 @@ public class FitnessClubCenter extends JFrame {
 
         JPanel contentPanel = new JPanel(new GridLayout(1, 2, 20, 20));
         contentPanel.setOpaque(false);
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(100, 160, 180, 160)); // Adjusted border
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(100, 160, 180, 160));
 
         JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 10, 20));
         buttonPanel.setOpaque(false);

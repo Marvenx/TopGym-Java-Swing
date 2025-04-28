@@ -5,7 +5,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 
@@ -22,17 +21,15 @@ public class MemberManagement extends JFrame {
         setTitle("Member Management");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 350);
-        setLocationRelativeTo(null);// Increased size for better table display
+        setLocationRelativeTo(null);
         initComponents();
         loadMemberData();
     }
-
 
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
         getContentPane().setBackground(new Color(248, 193, 60));
 
-        // Panel for displaying total number of members
         JPanel totalMembersPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         totalMembersLabel = new JLabel("Total Members: 0");
         totalMembersLabel.setForeground(Color.WHITE);
@@ -40,12 +37,11 @@ public class MemberManagement extends JFrame {
         totalMembersPanel.add(totalMembersLabel);
         mainPanel.add(totalMembersPanel, BorderLayout.NORTH);
 
-        // Table setup
         String[] columnNames = {"ID", "Name", "Prename", "Age", "Paid"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make table cells non-editable
+                return false;
             }
         };
 
@@ -53,11 +49,9 @@ public class MemberManagement extends JFrame {
         memberTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         memberTable.getTableHeader().setReorderingAllowed(false);
 
-        // Center-align ID and Age columns
         memberTable.getColumnModel().getColumn(0).setCellRenderer(new CenterRenderer());
         memberTable.getColumnModel().getColumn(3).setCellRenderer(new CenterRenderer());
 
-        // Boolean renderer for Paid column
         memberTable.getColumnModel().getColumn(4).setCellRenderer(new BooleanRenderer());
 
         JScrollPane tableScrollPane = new JScrollPane(memberTable);
@@ -68,9 +62,7 @@ public class MemberManagement extends JFrame {
         tablePanel.add(tableScrollPane, BorderLayout.CENTER);
         mainPanel.add(tablePanel, BorderLayout.CENTER);
 
-        // Button panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        //buttonPanel.setBackground(new Color(248, 193, 60));
 
         addButton = createButton("Add Member", e -> {
             AddMemberInterface addMemberInterface = new AddMemberInterface(MemberManagement.this);
@@ -116,7 +108,6 @@ public class MemberManagement extends JFrame {
         buttonPanel.add(deleteButton);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Enable/disable buttons based on selection
         memberTable.getSelectionModel().addListSelectionListener(e -> {
             boolean rowSelected = memberTable.getSelectedRow() != -1;
             modifyButton.setEnabled(rowSelected);
@@ -140,11 +131,8 @@ public class MemberManagement extends JFrame {
             if (memberDao == null) {
                 memberDao = new MemberDao();
             }
-
-            // Clear the table
             tableModel.setRowCount(0);
 
-            // Retrieve all members from the database
             ResultSet resultSet = memberDao.getAllMembers();
             int totalMembers = 0;
 
@@ -168,14 +156,12 @@ public class MemberManagement extends JFrame {
         }
     }
 
-    // Custom renderer for center-aligned cells
     private static class CenterRenderer extends DefaultTableCellRenderer {
         public CenterRenderer() {
             setHorizontalAlignment(JLabel.CENTER);
         }
     }
 
-    // Custom renderer for boolean values
     private static class BooleanRenderer extends DefaultTableCellRenderer {
         public BooleanRenderer() {
             setHorizontalAlignment(JLabel.CENTER);

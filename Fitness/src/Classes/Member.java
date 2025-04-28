@@ -12,7 +12,6 @@ public class Member extends Personne {
         this.paid = paid;
     }
 
-    // Getters and setters
     public int getAge() {
         return age;
     }

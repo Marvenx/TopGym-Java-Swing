@@ -11,7 +11,6 @@ public class Personne {
         this.prename = prename;
     }
 
-    // Getters and setters
     public int getId() {
         return id;
     }

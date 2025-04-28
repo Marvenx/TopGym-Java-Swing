@@ -22,18 +22,4 @@ public class MyConnexion {
         }
         return connection;
     }
-
-    // ✅ Test connection method
-    public static void testConnection() {
-        try {
-            Connection testConn = getConnexion(Config.url, Config.userName, Config.pass);
-            if (testConn != null && !testConn.isClosed()) {
-                System.out.println("✅ Database connection is WORKING!");
-            } else {
-                System.out.println("❌ Database connection FAILED.");
-            }
-        } catch (SQLException e) {
-            System.out.println("❌ Error during connection test: " + e.getMessage());
-        }
-    }
 }

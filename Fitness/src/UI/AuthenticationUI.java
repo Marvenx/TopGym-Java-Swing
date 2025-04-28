@@ -16,10 +16,10 @@ public class AuthenticationUI extends JFrame {
     public AuthenticationUI() {
         setTitle("Authentication");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        initComponents();            // 1. Add all components
-        pack();                      // 2. Pack to adjust size
-        setLocationRelativeTo(null); // 3. Center on screen
-        setVisible(true);            // 4. Finally, make it visible
+        initComponents();
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private void initComponents() {

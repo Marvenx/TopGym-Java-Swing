@@ -19,19 +19,17 @@ public class AddMemberInterface extends JFrame {
         this.memberManagement = memberManagement;
         setTitle("Add New Member");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(450, 300);  // keep the original frame size
-        setLocationRelativeTo(null); // center the frame
+        setSize(450, 300);
+        setLocationRelativeTo(null);
         initComponents();
     }
 
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        //mainPanel.setBackground(new Color(248, 193, 60)); // Your original background
         mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10)); // 5 rows, 2 columns
-        //formPanel.setBackground(new Color(255, 255, 240)); // Your light cream form background
-        formPanel.setBorder(new EmptyBorder(15, 15, 0, 15)); // Added some padding around the form
+        JPanel formPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        formPanel.setBorder(new EmptyBorder(15, 15, 0, 15));
 
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField(15);
@@ -44,16 +42,14 @@ public class AddMemberInterface extends JFrame {
 
         JLabel paidLabel = new JLabel("Paid:");
         paidCheckBox = new JCheckBox();
-        //paidCheckBox.setBackground(new Color(255, 255, 240)); // Match background
 
         JButton addButton = new JButton("Add");
-        addButton.setBackground(new Color(248, 193, 60)); // Same button color
-        addButton.setForeground(Color.WHITE); // White text
+        addButton.setBackground(new Color(248, 193, 60));
+        addButton.setForeground(Color.WHITE);
         addButton.setFocusPainted(false);
         addButton.setFont(new Font("Arial", Font.BOLD, 16));
         addButton.addActionListener(this::addMemberAction);
 
-        // Add components to form panel
         formPanel.add(nameLabel);
         formPanel.add(nameField);
         formPanel.add(prenameLabel);
@@ -66,7 +62,6 @@ public class AddMemberInterface extends JFrame {
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        //buttonPanel.setBackground(new Color(248, 193, 60));
         buttonPanel.add(addButton);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 

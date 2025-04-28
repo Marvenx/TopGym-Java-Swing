@@ -39,7 +39,6 @@ public class CreateAccountInterface extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Username Label + Field
         gbc.gridx = 0;
         gbc.gridy = 0;
         formPanel.add(new JLabel("Username:"), gbc);
@@ -49,7 +48,6 @@ public class CreateAccountInterface extends JFrame {
         usernameField.setFont(new Font("Arial", Font.PLAIN, 16));
         formPanel.add(usernameField, gbc);
 
-        // Password Label + Field
         gbc.gridx = 0;
         gbc.gridy = 1;
         formPanel.add(new JLabel("Password:"), gbc);
@@ -59,7 +57,6 @@ public class CreateAccountInterface extends JFrame {
         passwordField.setFont(new Font("Arial", Font.PLAIN, 16));
         formPanel.add(passwordField, gbc);
 
-        // Create Account Button
         createAccountButton = new JButton("Create Account");
         createAccountButton.setFont(new Font("Arial", Font.BOLD, 18));
         createAccountButton.setBackground(new Color(18, 111, 185));
@@ -99,7 +96,7 @@ public class CreateAccountInterface extends JFrame {
 
         if (rowsAffected > 0) {
             JOptionPane.showMessageDialog(this, "Account created successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            dispose();  // Close after success if you want
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Failed to create account.", "Error", JOptionPane.ERROR_MESSAGE);
         }

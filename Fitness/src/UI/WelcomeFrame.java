@@ -17,14 +17,12 @@ public class WelcomeFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Load the background image
         try {
             backgroundImage = ImageIO.read(new File("C:\\Users\\ASUS TUF\\Downloads\\fitnesscenter-master\\fitnesscenter-master\\Fitness\\src\\images\\background.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // Main panel with background
         JPanel mainPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -46,19 +44,16 @@ public class WelcomeFrame extends JFrame {
         JButton chatButton = createStyledButton("Enter Chat Room");
         JButton managerButton = createStyledButton("Manager Portal");
 
-        // Set same button size
         Dimension buttonSize = new Dimension(250, 50);
         chatButton.setMaximumSize(buttonSize);
         managerButton.setMaximumSize(buttonSize);
 
-        // Center buttons
         chatButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         managerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         chatButton.addActionListener(e -> openChatRoom());
         managerButton.addActionListener(e -> openPasswordFrame());
 
-        // Add components with vertical spacing
         mainPanel.add(welcomeLabel);
         mainPanel.add(Box.createRigidArea(new Dimension(0, 50)));
         mainPanel.add(chatButton);

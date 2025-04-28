@@ -35,14 +35,12 @@ public class ModifyCourseInterface extends JFrame {
     private void initComponents() {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        // Panel for the title
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel("Modify Course");
         titleLabel.setForeground(new Color(248, 193, 60));
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titlePanel.add(titleLabel);
 
-        // Panel for form fields
         JPanel formPanel = new JPanel(new GridLayout(2, 2, 5, 5));
         JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField();
@@ -53,7 +51,6 @@ public class ModifyCourseInterface extends JFrame {
         formPanel.add(descriptionLabel);
         formPanel.add(descriptionField);
 
-        // Panel for buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         saveButton = new JButton("Save");
         saveButton.setBackground(new Color(248, 193, 60));
@@ -78,15 +75,12 @@ public class ModifyCourseInterface extends JFrame {
         buttonPanel.add(saveButton);
         buttonPanel.add(cancelButton);
 
-        // Add panels to the main panel
         mainPanel.add(titlePanel, BorderLayout.NORTH);
         mainPanel.add(formPanel, BorderLayout.CENTER);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         add(mainPanel);
     }
-
-
 
     private void loadCourseData() {
         try {
@@ -121,7 +115,7 @@ public class ModifyCourseInterface extends JFrame {
             @Override
             public void run() {
                 CourseManagementInterface parentFrame = new CourseManagementInterface();
-                int courseId = 123; // Replace with the actual course ID
+                int courseId = 123;
                 new ModifyCourseInterface(parentFrame, courseId).setVisible(true);
             }
         });

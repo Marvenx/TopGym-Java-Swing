@@ -32,7 +32,6 @@ public class CourseManagementInterface extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout());
         getContentPane().setBackground(new Color(248, 193, 60));
 
-        // Total Courses Panel
         JPanel totalCoursesPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         totalCoursesLabel = new JLabel("Total Courses: 0");
         totalCoursesLabel.setForeground(Color.WHITE);
@@ -40,7 +39,6 @@ public class CourseManagementInterface extends JFrame {
         totalCoursesPanel.add(totalCoursesLabel);
         mainPanel.add(totalCoursesPanel, BorderLayout.NORTH);
 
-        // Table setup
         String[] columnNames = {"ID", "Name", "Description"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -53,12 +51,10 @@ public class CourseManagementInterface extends JFrame {
         courseTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         courseTable.getTableHeader().setReorderingAllowed(false);
 
-// Adjust column widths
         courseTable.getColumnModel().getColumn(0).setPreferredWidth(50);  // ID
         courseTable.getColumnModel().getColumn(1).setPreferredWidth(150); // Name
         courseTable.getColumnModel().getColumn(2).setPreferredWidth(500); // Description
 
-// Center-align ID and Name columns
         courseTable.getColumnModel().getColumn(0).setCellRenderer(new CenterRenderer());
         courseTable.getColumnModel().getColumn(1).setCellRenderer(new CenterRenderer());
 
@@ -71,7 +67,6 @@ public class CourseManagementInterface extends JFrame {
         tablePanel.add(tableScrollPane, BorderLayout.CENTER);
         mainPanel.add(tablePanel, BorderLayout.CENTER);
 
-        // Button Panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         addButton = createButton("Add Course", e -> {
@@ -118,7 +113,6 @@ public class CourseManagementInterface extends JFrame {
         buttonPanel.add(deleteButton);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Enable/disable buttons based on selection
         courseTable.getSelectionModel().addListSelectionListener(e -> {
             boolean rowSelected = courseTable.getSelectedRow() != -1;
             modifyButton.setEnabled(rowSelected);
@@ -143,10 +137,8 @@ public class CourseManagementInterface extends JFrame {
                 courseDao = new CourseDao();
             }
 
-            // Clear the table
             tableModel.setRowCount(0);
 
-            // Retrieve all courses from database
             ResultSet resultSet = courseDao.getAllCourses();
             int totalCourses = 0;
 
@@ -168,7 +160,6 @@ public class CourseManagementInterface extends JFrame {
         }
     }
 
-    // Custom renderer for center-aligned Name column
     private static class CenterRenderer extends DefaultTableCellRenderer {
         public CenterRenderer() {
             setHorizontalAlignment(JLabel.CENTER);

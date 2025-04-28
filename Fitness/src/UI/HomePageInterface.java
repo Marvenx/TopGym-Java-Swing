@@ -21,7 +21,7 @@ public class HomePageInterface extends JFrame {
             e.printStackTrace();
         }
         initComponents();
-        setSize(800, 600); // Set a preferred size
+        setSize(800, 600);
         setLocationRelativeTo(null);
     }
 
@@ -40,7 +40,7 @@ public class HomePageInterface extends JFrame {
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
         textPanel.setOpaque(false);
-        textPanel.setBorder(BorderFactory.createEmptyBorder(60, 0, 10, 0)); // Add padding at bottom
+        textPanel.setBorder(BorderFactory.createEmptyBorder(60, 0, 10, 0));
 
         JLabel welcomeLabel = new JLabel("Welcome, Mr Manager");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36));
@@ -50,12 +50,10 @@ public class HomePageInterface extends JFrame {
         textPanel.add(welcomeLabel);
         mainPanel.add(textPanel, BorderLayout.NORTH);
 
-        // Button panel
-        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 10, 10)); // Use GridLayout for button arrangement
-        buttonPanel.setOpaque(false); // Make the button panel transparent
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(160, 150, 150, 150)); // Add padding
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1, 10, 10));
+        buttonPanel.setOpaque(false);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(160, 150, 150, 150));
 
-        // Helper method to create a custom-styled button
         JButton createButton = createButton("Member Management");
         createButton.addActionListener(e -> openHomePageUI());
 
@@ -65,18 +63,15 @@ public class HomePageInterface extends JFrame {
         JButton chatButton = createButton("Chat Room");
         chatButton.addActionListener(e -> openChatRoom());
 
-        // Add buttons to the button panel
         buttonPanel.add(createButton);
         buttonPanel.add(courseButton);
         buttonPanel.add(chatButton);
 
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
-        // Set the content pane to the main panel
         setContentPane(mainPanel);
     }
 
-    // Helper method to create a custom-styled button
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 18));
@@ -85,7 +80,6 @@ public class HomePageInterface extends JFrame {
         return button;
     }
 
-    // Action methods for button clicks
     private void openHomePageUI() {
         MemberManagement memberManagement = new MemberManagement();
         memberManagement.setVisible(true);
@@ -100,7 +94,7 @@ public class HomePageInterface extends JFrame {
         try {
             String url = "rmi://127.0.0.1:9001/chat";
             ChatRemote chat = (ChatRemote) java.rmi.Naming.lookup(url);
-            new ChatUI(chat).setVisible(true); // directly open ChatUI
+            new ChatUI(chat).setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(this, "Failed to open Chat Room.", "Error", JOptionPane.ERROR_MESSAGE);

@@ -32,65 +32,56 @@ public class ModifyMemberInterface extends JFrame {
 
         initComponents();
         loadMemberData();
-        setInterfaceColors(); // Set interface colors
+        setInterfaceColors();
     }
 
     private void initComponents() {
-        // Main panel with GridBagLayout
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 10, 10, 10); // Add padding around components
+        gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Title label
         JLabel titleLabel = new JLabel("Modify the Members");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 18)); // Set title font
-        gbc.gridwidth = 2; // Span two columns
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        gbc.gridwidth = 2;
         mainPanel.add(titleLabel, gbc);
 
-        // Reset grid width and increment grid y position
         gbc.gridwidth = 1;
         gbc.gridy++;
 
-        // Name label and field
         mainPanel.add(new JLabel("Name:"), gbc);
         gbc.gridx = 1;
-        gbc.gridwidth = 2; // Span two columns
+        gbc.gridwidth = 2;
         mainPanel.add(nameField = new JTextField(20), gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 1; // Reset grid width
+        gbc.gridwidth = 1;
 
-        // Prename label and field
         mainPanel.add(new JLabel("Prename:"), gbc);
         gbc.gridx = 1;
         mainPanel.add(prenameField = new JTextField(20), gbc);
         gbc.gridx = 0;
         gbc.gridy++;
 
-        // Age label and field
         mainPanel.add(new JLabel("Age:"), gbc);
         gbc.gridx = 1;
         mainPanel.add(ageField = new JTextField(20), gbc);
         gbc.gridx = 0;
         gbc.gridy++;
 
-        // Paid label and checkbox
         mainPanel.add(new JLabel("Paid:"), gbc);
         gbc.gridx = 1;
         mainPanel.add(paidCheckBox = new JCheckBox(), gbc);
         gbc.gridx = 0;
         gbc.gridy++;
 
-        // Button panel with FlowLayout
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0)); // Added horizontal gap of 10 pixels
-        buttonPanel.setBackground(new Color(248, 193, 60)); // Set background color of the button panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        buttonPanel.setBackground(new Color(248, 193, 60));
 
-        // Save button
         saveButton = new JButton("Save");
-        saveButton.setBackground(new Color(255, 255, 240)); // Set background color of the "Save" button
-        saveButton.setForeground(Color.BLACK); // Set text color of the "Save" button
+        saveButton.setBackground(new Color(255, 255, 240));
+        saveButton.setForeground(Color.BLACK);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,10 +89,9 @@ public class ModifyMemberInterface extends JFrame {
             }
         });
 
-        // Cancel button
         cancelButton = new JButton("Cancel");
-        cancelButton.setBackground(new Color(255, 255, 240)); // Set background color of the "Cancel" button
-        cancelButton.setForeground(Color.BLACK); // Set text color of the "Cancel" button
+        cancelButton.setBackground(new Color(255, 255, 240));
+        cancelButton.setForeground(Color.BLACK);
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,17 +99,14 @@ public class ModifyMemberInterface extends JFrame {
             }
         });
 
-        // Add buttons to the button panel with space between them
         buttonPanel.add(saveButton);
         buttonPanel.add(cancelButton);
 
-        // Add button panel to the main panel
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.gridwidth = 2; // Span two columns
+        gbc.gridwidth = 2;
         mainPanel.add(buttonPanel, gbc);
 
-        // Add main panel to the frame
         add(mainPanel);
     }
 
@@ -150,8 +137,8 @@ public class ModifyMemberInterface extends JFrame {
             MemberDao memberDao = new MemberDao();
             int rowsAffected = memberDao.updateMember(new Member(memberId, name, prename, age, paid));
             if (rowsAffected > 0) {
-                parentFrame.loadMemberData(); // Refresh member list in HomePageUI
-                dispose(); // Close the modify interface
+                parentFrame.loadMemberData();
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to update member data.");
             }
@@ -162,34 +149,29 @@ public class ModifyMemberInterface extends JFrame {
     }
 
     private void setInterfaceColors() {
-        // Set background color of the main panel
         getContentPane().setBackground(new Color(255, 255, 240));
 
-        // Set button colors and borders
-        Color buttonColor = new Color(248, 193, 60); // Button background color
-        Color textColor = Color.WHITE; // Button text color
-        Font buttonFont = new Font("Arial", Font.PLAIN, 14); // Button font
+        Color buttonColor = new Color(248, 193, 60);
+        Color textColor = Color.WHITE;
+        Font buttonFont = new Font("Arial", Font.PLAIN, 14);
 
-        // Save button
         saveButton.setBackground(buttonColor);
         saveButton.setForeground(textColor);
         saveButton.setFont(buttonFont);
-        saveButton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); // Add padding to the button
+        saveButton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
 
-        // Cancel button
         cancelButton.setBackground(buttonColor);
         cancelButton.setForeground(textColor);
         cancelButton.setFont(buttonFont);
-        cancelButton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15)); // Add padding to the button
+        cancelButton.setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 15));
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                // You need to provide the parentFrame and memberId values here
                 MemberManagement parentFrame = new MemberManagement();
-                int memberId = 123; // Replace with the actual member ID
+                int memberId = 123;
                 new ModifyMemberInterface(parentFrame, memberId).setVisible(true);
             }
         });
