@@ -36,7 +36,7 @@ public class WelcomeFrame extends JFrame {
         mainPanel.setOpaque(false);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(100, 150, 50, 150)); // top, left, bottom, right padding
 
-        JLabel welcomeLabel = new JLabel("Welcome to TopGym");
+        JLabel welcomeLabel = new JLabel("Welcome to TopGym!");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 36));
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
